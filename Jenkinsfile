@@ -9,20 +9,22 @@ pipeline{
       }
     stage('Build Docker Images') {
             steps {
-                bat 'docker build -t html-page -f Dockerfile.1 .'
-                bat 'docker build -t node-app -f Dockerfile.node .'
+                bat 'docker build -t htmlpage -f Dockerfile.1 .'
+                bat 'docker build -t mynode -f Dockerfile.node .'
             }
        }
     stage('Stop Old Containers') {
             steps{
-               bat 'docker stop mycont || exit 0' 
-                bat 'docker rm mycont || exit 0'
+              bat 'docker stop html-container || exit 0'
+              bat 'docker rm html-container || exit 0'
+              bat 'docker stop node-container || exit 0'
+              bat 'docker rm node-container || exit 0'
             }
         }
    stage('Run Image-Containerize') {
             steps{
-                bat 'docker run -d --name html-container -p 2000:80 html-page'
-                bat 'docker run -d --name node-container -p 2001:3000 node-app'
+                bat 'docker run -d --name html-container -p 2000:80 htmlpage'
+                bat 'docker run -d --name node-container -p 2001:3000 mynode'
       }
     }
     stage('Verify') {
