@@ -4,7 +4,7 @@ pipeline{
   stages{
     stage('Checkout'){
         steps{
-          git 'https://github.com/nishi-077/docker-jen.git'
+          git git branch: 'main', url: 'https://github.com/nishi-077/docker-jen.git'
         }
       }
     stage('Build Docker Images') {
